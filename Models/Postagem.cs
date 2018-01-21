@@ -14,13 +14,13 @@ namespace projetoForum.Models
         {
         }
 
-        public Postagem(int Id, int IdTopico, int IdUsuario, string Mensagem)
+        public Postagem(int Id, int IdTopico, int IdUsuario, string Mensagem, DateTime DataPublicacao)
         {
             this.Id = Id;
             this.IdTopico = IdTopico;
             this.IdUsuario = IdUsuario;
             this.Mensagem = Mensagem;
-            this.DataPublicacao = DateTime.Now;
+            this.DataPublicacao = DataPublicacao;
         }
     }
 }
