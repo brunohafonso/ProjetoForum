@@ -71,12 +71,13 @@ namespace projetoForum.DAO {
             bool result = false;
             try {
                 cn = new SqlConnection (sqlCon);
-                string sqlQuery = "UPDATE postagens SET IdTopico = @t, IdUsuario = @u, Mensagem = @m WHERE Id = @i";
+                string sqlQuery = "UPDATE postagens SET IdTopico = @t, IdUsuario = @u, Mensagem = @m, DataPublicacao = @da WHERE Id = @i";
                 cn.Open();
                 cmd = new SqlCommand (sqlQuery, cn);
                 cmd.Parameters.AddWithValue ("@t", postagem.IdTopico);
                 cmd.Parameters.AddWithValue ("@u", postagem.IdUsuario);
                 cmd.Parameters.AddWithValue ("@m", postagem.Mensagem);
+                cmd.Parameters.AddWithValue("@da", DateTime.Now);
                 cmd.Parameters.AddWithValue ("@i", postagem.Id);
                 int r = cmd.ExecuteNonQuery ();
                 if (r > 0) {

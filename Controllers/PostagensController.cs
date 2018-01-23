@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using projetoForum.DAO;
 using projetoForum.Models;
@@ -14,6 +15,12 @@ namespace ProjetoForum.Controllers {
         [Route ("API/listarPostagens")]
         public IEnumerable<Postagem> Listar () {
             return dao.Listar ();
+        }
+
+        [HttpGet ("{Id}")]
+        [Route ("API/[Controller]/{Id}")]
+        public Postagem Listar (int Id) {
+            return dao.Listar().Where(c => c.Id == Id).FirstOrDefault();
         }
 
         [HttpPost]

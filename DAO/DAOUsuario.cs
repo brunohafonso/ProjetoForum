@@ -90,12 +90,13 @@ namespace projetoForum.DAO
             try
             {
                 cn = new SqlConnection(sqlCon);
-                string sqlQuery = "UPDATE Usuarios SET Nome = @n, Login = @l, Senha = @s WHERE id = @i";
+                string sqlQuery = "UPDATE Usuarios SET Nome = @n, Login = @l, Senha = @s, DataCadastro = @d WHERE id = @i";
                 cn.Open();
                 cmd = new SqlCommand(sqlQuery, cn);
                 cmd.Parameters.AddWithValue("@n", usuario.Nome);
                 cmd.Parameters.AddWithValue("@l", usuario.Login);
                 cmd.Parameters.AddWithValue("@s", usuario.Senha);
+                cmd.Parameters.AddWithValue("@d", DateTime.Now);
                 cmd.Parameters.AddWithValue("@i", usuario.Id);
                 int r = cmd.ExecuteNonQuery();
                 if (r > 0)

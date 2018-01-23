@@ -13,7 +13,7 @@ namespace projetoForum.Models
         public Postagem()
         {
         }
-
+        
         public Postagem(int Id, int IdTopico, int IdUsuario, string Mensagem, DateTime DataPublicacao)
         {
             this.Id = Id;
