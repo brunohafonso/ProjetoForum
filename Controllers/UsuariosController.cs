@@ -79,16 +79,67 @@ namespace projetoForum.Controllers
 
         [HttpPut]
         [Route("API/atualizarUsuario")]
-        public bool Atualizar([FromBody] Usuario usuario)
+        public IActionResult Atualizar([FromBody] Usuario usuario)
         {
-            return dao.Editar(usuario);
+            JsonResult rs = null;
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+
+                rs = new JsonResult(dao.Editar(usuario));
+                rs.ContentType = "application/json";
+                if (!Convert.ToBoolean(rs.Value))
+                {
+                    rs.StatusCode = 204;
+                    rs.Value = "Ocorreu um erro";
+                }
+                else
+                {
+                    rs.StatusCode = 200;
+                }
+            }
+            catch (SystemException ex)
+            {
+                rs = new JsonResult("");
+                rs.StatusCode = 404;
+                rs.Value = ex.Message;
+            }
+
+            return Json(rs);
         }
 
         [HttpDelete("{Id}")]
         [Route("API/deletarUsuario/{Id}")]
-        public bool Deletar(int Id)
+        public IActionResult Deletar(int Id)
         {
-            return dao.Deletar(Id);
+            JsonResult rs = null;
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+                rs = new JsonResult(dao.Deletar(Id));
+                rs.ContentType = "application/json";
+
+                if (!Convert.ToBoolean(rs.Value))
+                {
+                    rs.StatusCode = 204;
+                    rs.Value = "Ocorreu um erro.";
+                }
+                else
+                {
+                    rs.StatusCode = 200;
+                }
+
+            }
+            catch (SystemException ex)
+            {
+                rs = new JsonResult("");
+                rs.StatusCode = 404;
+                rs.Value = ex.Message;
+            }
+
+            return Json(rs);
         }
     }
 }
